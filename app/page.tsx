@@ -27,7 +27,7 @@ export default function Home() {
       <main className="container mx-auto px-4 max-w-3xl space-y-16 pt-12">
         <section className="py-8">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            i'm <span className="text-primary">dhiraj laulkar</span>, engineer at the intersection of solving problems & building products.
+            i'm <span className="text-primary">dhiraj laulkar</span>, engineer at the intersection of building products & solving problems.
           </h1>
           {/* <p className="text-muted-foreground max-w-xl mb-8">
             I write about things I'm learning,{" "}
