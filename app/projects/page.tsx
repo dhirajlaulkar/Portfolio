@@ -90,8 +90,8 @@ const featuredProjects: Project[] = [
   {
     title: "quickcart e-commerce ",
     description: "A e-commerce platform for buying and selling products.",
-    link: "https://quick-cart-sable-two.vercel.app/",
-    githubUrl: "https://github.com/dhirajlaulkar/E-commerce-Application",
+    link: "https://quick-cart-e-com.vercel.app/",
+    githubUrl: "https://github.com/dhirajlaulkar/quick-cart",
     icon: <span className="text-lg">🛒</span>,
   },
   {
