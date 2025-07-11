@@ -14,7 +14,7 @@ import {
 const links = [
   { href: "/projects", label: "Projects" },
   {
-    href: "https://drive.google.com/your-resume-url",
+    href: "https://drive.google.com/file/d/1uLRHhk-PmBgEAFDzVBL4FAE9vFOdwnrh/view?usp=sharing",
     label: "Resume",
     external: true,
   },
