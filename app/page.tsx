@@ -53,7 +53,7 @@ export default function Home() {
           <section id="skills" className="py-6">
             <h2 className="text-2xl font-semibold mb-6">skills</h2>
             <div className="flex flex-wrap gap-2">
-              {["React", "PostgreSQL", "C++", "Python", "Node.js", "Data Structures", "Algorithms", "Next.js", "Typescript"].map((skill) => (
+              {["React", "PostgreSQL", "C++", "Python", "Node.js", "Data Structures", "Algorithms", "Next.js", "Typescript", "AWS", "Docker", "MongoDB"].map((skill) => (
                 <div
                   key={skill}
                   className="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold text-muted-foreground transition-colors hover:bg-secondary"
