@@ -7,6 +7,9 @@ import { NavMenu } from "@/components/nav-menu"
 import { CodingProfiles } from "@/components/coding-profiles"
 import { ContactSection } from "@/components/contact-section"
 
+const CURRENT_YEAR = new Date().getFullYear();
+const SKILLS = ["React", "PostgreSQL", "C++", "Python", "Node.js", "Data Structures", "Algorithms", "Next.js", "Typescript", "AWS", "Docker", "MongoDB"];
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -53,7 +56,7 @@ export default function Home() {
           <section id="skills" className="py-6">
             <h2 className="text-2xl font-semibold mb-6">skills</h2>
             <div className="flex flex-wrap gap-2">
-              {["React", "PostgreSQL", "C++", "Python", "Node.js", "Data Structures", "Algorithms", "Next.js", "Typescript", "AWS", "Docker", "MongoDB"].map((skill) => (
+              {SKILLS.map((skill) => (
                 <div
                   key={skill}
                   className="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold text-muted-foreground transition-colors hover:bg-secondary"
@@ -69,7 +72,7 @@ export default function Home() {
       </main>
 
       <footer className="container mx-auto px-4 max-w-3xl py-8 mt-16 border-t text-center text-sm text-muted-foreground">
-        <p>© {new Date().getFullYear()} | Dhiraj Laulkar | All rights reserved.</p>
+        <p>© {CURRENT_YEAR} | Dhiraj Laulkar | All rights reserved.</p>
       </footer>
     </div>
   )

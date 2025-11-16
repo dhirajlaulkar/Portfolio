@@ -10,18 +10,57 @@ interface CodeforcesUser {
   rank: string;
 }
 
+// Cache for API responses with 1 hour TTL
+const CACHE_TTL = 60 * 60 * 1000; // 1 hour in milliseconds
+const CACHE_KEY_PREFIX = 'coding_profile_';
+
+function getCachedData(key: string): any | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const cached = localStorage.getItem(CACHE_KEY_PREFIX + key);
+    if (cached) {
+      const { data, timestamp } = JSON.parse(cached);
+      if (Date.now() - timestamp < CACHE_TTL) {
+        return data;
+      }
+      localStorage.removeItem(CACHE_KEY_PREFIX + key);
+    }
+  } catch (error) {
+    console.error('Error reading from cache:', error);
+  }
+  return null;
+}
+
+function setCachedData(key: string, data: any): void {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(
+      CACHE_KEY_PREFIX + key,
+      JSON.stringify({ data, timestamp: Date.now() })
+    );
+  } catch (error) {
+    console.error('Error writing to cache:', error);
+  }
+}
+
 async function fetchCodeforcesRating(handle: string): Promise<CodeforcesUser | null> {
+  const cacheKey = `codeforces_${handle}`;
+  const cached = getCachedData(cacheKey);
+  if (cached) return cached;
+
   try {
     const response = await fetch(`https://codeforces.com/api/user.info?handles=${handle}`);
     const data = await response.json();
     if (data.status === 'OK' && data.result[0]) {
       const user = data.result[0];
-      return {
+      const result = {
         handle: user.handle,
         rating: user.rating,
         maxRating: user.maxRating,
         rank: user.rank
       };
+      setCachedData(cacheKey, result);
+      return result;
     }
     return null;
   } catch (error) {
@@ -31,14 +70,19 @@ async function fetchCodeforcesRating(handle: string): Promise<CodeforcesUser | n
 }
 
 async function fetchLeetCodeRating(username: string) {
+  const cacheKey = `leetcode_${username}`;
+  const cached = getCachedData(cacheKey);
+  if (cached) return cached;
+
   try {
     const response = await fetch(`/api/leetcode?username=${username}`);
     const data = await response.json();
     console.log('LeetCode API response:', data);
-      const rating = data.data?.userContestRanking?.rating;
+    const rating = data.data?.userContestRanking?.rating;
     if (rating) {
       const roundedRating = Math.round(rating);
       console.log('LeetCode rating:', roundedRating);
+      setCachedData(cacheKey, roundedRating);
       return roundedRating;
     }
     console.log('No rating found in response');
@@ -50,7 +94,7 @@ async function fetchLeetCodeRating(username: string) {
 }
 
 async function fetchCodeChefRating(username: string) {
-  await new Promise(resolve => setTimeout(resolve, Math.random() * 2000 + 1000)); // Random time between 1-3 seconds
+  // Hardcoded rating - replace with actual API when available
   return 1617;
 }
 
