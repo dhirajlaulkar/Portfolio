@@ -24,14 +24,22 @@ export function NavMenu() {
   const [isOpen, setIsOpen] = React.useState(false);
 
   React.useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    
     function handleResize() {
-      if (window.innerWidth >= 768 && isOpen) { // 768px is the 'md' breakpoint
-        setIsOpen(false);
-      }
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        if (window.innerWidth >= 768 && isOpen) { // 768px is the 'md' breakpoint
+          setIsOpen(false);
+        }
+      }, 150); // Debounce resize events by 150ms
     }
 
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', handleResize);
+    };
   }, [isOpen]);
 
   return (
