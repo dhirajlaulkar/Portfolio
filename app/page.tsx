@@ -1,86 +1,41 @@
-import type React from "react"
-import { ArrowUpRight } from "lucide-react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "@/components/theme-toggle"
-import { NavMenu } from "@/components/nav-menu"
-import { CodingProfiles } from "@/components/coding-profiles"
-import { ContactSection } from "@/components/contact-section"
-
-const CURRENT_YEAR = new Date().getFullYear();
-const SKILLS = ["React", "PostgreSQL", "C++", "Python", "Node.js", "Data Structures", "Algorithms", "Next.js", "Typescript", "AWS", "Docker", "MongoDB"];
+import { HeroSection } from "@/components/hero-section"
+import { ExperienceSection } from "@/components/experience-section"
+import { ProjectsSection } from "@/components/projects-section"
+import { AchievementsSection } from "@/components/achievements-section"
+import { CodingProfilesSection } from "@/components/coding-profiles-section"
+import { GitHubContributions } from "@/components/github-contributions"
+import { TechStackMarquee } from "@/components/tech-stack-marquee"
+import { ConnectSection } from "@/components/connect-section"
+import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto px-4 py-4 max-w-3xl border-b">
-          <div className="flex justify-between items-center">
-            <Link href="/" className="text-lg font-medium">
-              portfolio
-            </Link>
-            <div className="flex items-center gap-4">
-              <NavMenu />
-              <ThemeToggle />
-            </div>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
-      <main className="container mx-auto px-4 max-w-3xl space-y-16 pt-12">
-        <section className="py-8">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            i'm <span className="text-primary">dhiraj laulkar</span>, engineer at the intersection of building products & solving problems.
-          </h1>
-          {/* <p className="text-muted-foreground max-w-xl mb-8">
-            I write about things I'm learning,{" "}
-            <span className="bg-primary/10 text-primary px-2 py-0.5 rounded">reflections</span> and thoughts on life
-            and <span className="bg-primary/10 text-primary px-2 py-0.5 rounded">tech</span>.
-          </p> */}
-          <div className="flex gap-4">
-            <Button asChild>
-              <Link href="#contact">Get in touch</Link>
-            </Button>
-            <Button variant="outline" asChild>
-              <Link href="/projects">View projects</Link>
-            </Button>
-          </div>
+      <main className="container mx-auto px-4 max-w-5xl space-y-20 md:space-y-28 pt-10 md:pt-16 pb-8">
+        <HeroSection />
+        <ExperienceSection />
+        <ProjectsSection />
+        <AchievementsSection />
+        <CodingProfilesSection />
+        <GitHubContributions />
+        <TechStackMarquee />
+
+        <section className="rounded-2xl border bg-muted/30 px-6 py-8 text-center space-y-3">
+          <p className="text-muted-foreground text-sm md:text-base">
+            If you&apos;ve read this far, you might be interested in what I do.
+          </p>
+          <p className="text-xs text-muted-foreground">
+            Hacktoberfest 2025 Super Contributor · 750+ DSA problems solved
+          </p>
         </section>
 
-        <div className="space-y-8">
-          <section className="py-6">
-            <h2 className="text-2xl font-semibold mb-6">coding profiles</h2>
-            <CodingProfiles />
-          </section>
-
-          <section id="skills" className="py-6">
-            <h2 className="text-2xl font-semibold mb-6">skills</h2>
-            <div className="flex flex-wrap gap-2">
-              {SKILLS.map((skill) => (
-                <div
-                  key={skill}
-                  className="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold text-muted-foreground transition-colors hover:bg-secondary"
-                >
-                  {skill}
-                </div>
-              ))}
-            </div>
-          </section>
-        </div>
-
-        <ContactSection />
+        <ConnectSection />
       </main>
 
-      <footer className="container mx-auto px-4 max-w-3xl py-8 mt-16 border-t text-center text-sm text-muted-foreground">
-        <p>© {CURRENT_YEAR} | Dhiraj Laulkar | All rights reserved.</p>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }
-
-
-
-
-
-
-

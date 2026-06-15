@@ -1,69 +1,20 @@
-import type React from "react"
 import Link from "next/link"
 import { ArrowLeft, ArrowUpRight, Github } from "lucide-react"
+import { PROJECTS } from "@/lib/portfolio-data"
+import { cn } from "@/lib/utils"
 
-type Project = {
-  title: string
-  description: string
-  link?: string
-  githubUrl?: string
-  icon: React.ReactNode
-}
-
-const featuredProjects: Project[] = [
-  {
-    title: "quickcart e-commerce ",
-    description: "A e-commerce platform for buying and selling products.",
-    link: "https://quick-cart-e-com.vercel.app/",
-    githubUrl: "https://github.com/dhirajlaulkar/quick-cart",
-    icon: <span className="text-lg">🛒</span>,
-  },
-  {
-    title: "collab editor",
-    description: "A real-time collaborative text editor that allows multiple users to edit the same document simultaneously.",
-    link: "https://collab-editor-production-fee3.up.railway.app/",
-    githubUrl: "https://github.com/dhirajlaulkar/collab-editor",
-    icon: <span className="text-lg">🖊️</span>,
-  },
-  {
-    title: "easybuy AI",
-    description: "An Ecommerce Assistant to Discover, compare, and analyze products with the power of Gemini AI",
-    link: "https://easybuy.streamlit.app/",
-    githubUrl: "https://github.com/dhirajlaulkar/easybuy-ai",
-    icon: <span className="text-lg">🤖</span>,
-  },
-  
-]
-
-const hobbyProjects: Project[] = [
-  {
-    title: "falling stars game",
-    description: "A falling stars game that you can play in your browser.",
-    link: "https://fallstar.vercel.app/",
-    githubUrl: "https://github.com/dhirajlaulkar/falling-stars-game",
-    icon: <span className="text-lg">🌟</span>,
-  },
-  {
-    title: "on the beat",
-    description: "A music visualizer that displays the music in a visual way.",
-    link: "https://onthebeat.vercel.app/",
-    githubUrl: "https://github.com/dhirajlaulkar/audio-visualizer",
-    icon: <span className="text-lg">🎵</span>,
-  },
-  {
-    title: "random meme generator",
-    description: "A app that entertains you with random memes.",
-    link: "https://random-meme-xi.vercel.app/",
-    githubUrl: "https://github.com/dhirajlaulkar/random-meme-generator",
-    icon: <span className="text-lg">🤣</span>,
-  }
-]
-
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project }: { project: (typeof PROJECTS)[number] }) {
   return (
     <div className="group">
       <div className="flex items-start gap-4">
-        <div className="w-10 h-10 bg-muted flex items-center justify-center rounded-md shrink-0">{project.icon}</div>
+        <div
+          className={cn(
+            "w-12 h-12 rounded-lg bg-gradient-to-br flex items-center justify-center text-xl shrink-0",
+            project.gradient
+          )}
+        >
+          {project.emoji}
+        </div>
         <div>
           <div className="flex items-center gap-2 mb-1">
             <h3 className="font-medium">{project.title}</h3>
@@ -91,6 +42,16 @@ function ProjectCard({ project }: { project: Project }) {
             </div>
           </div>
           <p className="text-muted-foreground text-sm">{project.description}</p>
+          <div className="flex flex-wrap gap-1.5 mt-2">
+            {project.stack.map((tech) => (
+              <span
+                key={tech}
+                className="text-[10px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -98,8 +59,11 @@ function ProjectCard({ project }: { project: Project }) {
 }
 
 export default function ProjectsPage() {
+  const featured = PROJECTS.filter((p) => p.featured)
+  const hobby = PROJECTS.filter((p) => !p.featured)
+
   return (
-    <div className="container mx-auto px-4 py-12 max-w-3xl">
+    <div className="container mx-auto px-4 py-12 max-w-5xl">
       <div className="mb-8">
         <Link
           href="/"
@@ -116,7 +80,7 @@ export default function ProjectsPage() {
         <section>
           <h2 className="text-2xl font-semibold mb-8">featured projects</h2>
           <div className="space-y-8">
-            {featuredProjects.map((project) => (
+            {featured.map((project) => (
               <ProjectCard key={project.title} project={project} />
             ))}
           </div>
@@ -125,7 +89,7 @@ export default function ProjectsPage() {
         <section>
           <h2 className="text-2xl font-semibold mb-8">fun/hobby projects</h2>
           <div className="space-y-8">
-            {hobbyProjects.map((project) => (
+            {hobby.map((project) => (
               <ProjectCard key={project.title} project={project} />
             ))}
           </div>

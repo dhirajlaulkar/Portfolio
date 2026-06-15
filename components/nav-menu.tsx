@@ -12,9 +12,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const links = [
-  { href: "/projects", label: "Projects" },
+  { href: "/#experience", label: "Experience" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/projects", label: "All Projects" },
   {
-    href: "https://drive.google.com/file/d/1uLRHhk-PmBgEAFDzVBL4FAE9vFOdwnrh/view?usp=sharing",
+    href: "/Dhiraj_Laulkar_SWE.pdf",
     label: "Resume",
     external: true,
   },
